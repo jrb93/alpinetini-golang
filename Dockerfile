@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM jrb93/alpinetini-base:3.6
 
 RUN apk add --no-cache ca-certificates
 
