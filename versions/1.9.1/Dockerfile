@@ -1,5 +1,10 @@
 FROM jrb93/alpinetini-base:3.6
 
+LABEL org.label-schema.schema-version="1.0" \
+      org.label-schema.name="alpinetini-golang" \
+      org.label-schema.version="0.1.0" \
+      org.label-schema.vcs-url="https://github.com/jrb93/alpinetini-golang"
+
 RUN apk add --no-cache ca-certificates
 
 ENV GOLANG_VERSION 1.9.1
