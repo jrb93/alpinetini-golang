@@ -11,12 +11,14 @@ ENV GOLANG_VERSION 1.9.1
 # https://golang.org/issue/17847 (Go 1.7)
 COPY ["*.patch", "go-wrapper", "/mnt/"]
 
-RUN apk add --no-cache ca-certificates
-
 RUN set -eux; \
+# Move patch and go-wrapper to correct directory
 	mkdir /go-alpine-patches/; \
 	mv /mnt/*.patch /go-alpine-patches/; \
 	mv /mnt/go-wrapper /usr/local/bin/; \
+# Install packages required after build 
+	apk add --no-cache ca-certificates git; \
+# Install temporary packages for compiling golang from source
 	apk add --no-cache --virtual .build-deps \
 		bash \
 		gcc \
