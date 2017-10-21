@@ -5,15 +5,18 @@ LABEL org.label-schema.schema-version="1.0" \
       org.label-schema.version="0.1.0" \
       org.label-schema.vcs-url="https://github.com/jrb93/alpinetini-golang"
 
-RUN apk add --no-cache ca-certificates
-
 ENV GOLANG_VERSION 1.9.1
 
 # https://golang.org/issue/14851 (Go 1.8 & 1.7)
 # https://golang.org/issue/17847 (Go 1.7)
-COPY *.patch /go-alpine-patches/
+COPY ["*.patch", "go-wrapper", "/mnt/"]
+
+RUN apk add --no-cache ca-certificates
 
 RUN set -eux; \
+	mkdir /go-alpine-patches/; \
+	mv /mnt/*.patch /go-alpine-patches/; \
+	mv /mnt/go-wrapper /usr/local/bin/; \
 	apk add --no-cache --virtual .build-deps \
 		bash \
 		gcc \
@@ -57,5 +60,3 @@ ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
 RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
 WORKDIR $GOPATH
-
-COPY go-wrapper /usr/local/bin/
