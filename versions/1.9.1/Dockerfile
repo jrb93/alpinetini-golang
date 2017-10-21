@@ -59,7 +59,7 @@ RUN set -eux; \
 	\
 # Cleanup image
 	rm -rf /go-alpine-patches; \
-	apk del .build-deps
+	apk del --no-cache .build-deps
 
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
