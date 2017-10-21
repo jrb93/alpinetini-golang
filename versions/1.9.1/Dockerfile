@@ -39,23 +39,27 @@ RUN set -eux; \
 		GOHOSTARCH="$(go env GOHOSTARCH)" \
 	; \
 	\
+# Download golang, check hash and untar
 	wget -O go.tgz "https://golang.org/dl/go$GOLANG_VERSION.src.tar.gz"; \
 	echo 'a84afc9dc7d64fe0fa84d4d735e2ece23831a22117b50dafc75c1484f1cb550e *go.tgz' | sha256sum -c -; \
 	tar -C /usr/local -xzf go.tgz; \
 	rm go.tgz; \
 	\
 	cd /usr/local/go/src; \
+# Apply patches
 	for p in /go-alpine-patches/*.patch; do \
 		[ -f "$p" ] || continue; \
 		patch -p2 -i "$p"; \
 	done; \
+# Compile golang
 	./make.bash; \
 	\
-	rm -rf /go-alpine-patches; \
-	apk del .build-deps; \
-	\
 	export PATH="/usr/local/go/bin:$PATH"; \
-	go version
+	go version; \
+	\
+# Cleanup image
+	rm -rf /go-alpine-patches; \
+	apk del .build-deps
 
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
