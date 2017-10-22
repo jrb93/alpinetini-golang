@@ -5,7 +5,9 @@ LABEL org.label-schema.schema-version="1.0" \
       org.label-schema.version="0.1.0" \
       org.label-schema.vcs-url="https://github.com/jrb93/alpinetini-golang"
 
-ENV GOLANG_VERSION 1.9.1
+ENV GOLANG_VERSION="1.9.1" \
+		GOPATH="/go" \
+		PATH="$GOPATH/bin:/usr/local/go/bin:$PATH"
 
 # https://golang.org/issue/14851 (Go 1.8 & 1.7)
 # https://golang.org/issue/17847 (Go 1.7)
@@ -60,9 +62,6 @@ RUN set -eux; \
 # Cleanup image
 	rm -rf /go-alpine-patches; \
 	apk del --no-cache .build-deps
-
-ENV GOPATH /go
-ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
 RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
 WORKDIR $GOPATH
