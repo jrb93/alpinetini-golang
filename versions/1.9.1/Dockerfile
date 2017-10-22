@@ -56,12 +56,13 @@ RUN set -eux; \
 # Compile golang
 	./make.bash; \
 	\
+# Finish golang setup
 	export PATH="/usr/local/go/bin:$PATH"; \
+	mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"; \
 	go version; \
 	\
 # Cleanup image
 	rm -rf /go-alpine-patches; \
 	apk del --no-cache .build-deps
 
-RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
 WORKDIR $GOPATH
