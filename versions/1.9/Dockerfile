@@ -1,9 +1,9 @@
 FROM jrb93/alpinetini:3.6
 
 LABEL org.label-schema.schema-version="1.0" \
-      org.label-schema.name="alpinetini-golang" \
+      org.label-schema.name="golangtini" \
       org.label-schema.version="1.0.0" \
-      org.label-schema.vcs-url="https://github.com/jrb93/alpinetini-golang"
+      org.label-schema.vcs-url="https://github.com/jrb93/golangtini"
 
 ENV GOLANG_VERSION="1.9.1" \
 		GOPATH="/go" \
