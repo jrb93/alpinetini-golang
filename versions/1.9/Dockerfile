@@ -1,4 +1,4 @@
-FROM jrb93/alpinetini-base:3.6
+FROM jrb93/alpinetini:3.6
 
 LABEL org.label-schema.schema-version="1.0" \
       org.label-schema.name="alpinetini-golang" \
