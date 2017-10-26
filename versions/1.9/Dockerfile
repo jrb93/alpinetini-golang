@@ -2,10 +2,10 @@ FROM jrb93/alpinetini:3.6
 
 LABEL org.label-schema.schema-version="1.0" \
       org.label-schema.name="golangtini" \
-      org.label-schema.version="1.0.0" \
+      org.label-schema.version="1.1.0" \
       org.label-schema.vcs-url="https://github.com/jrb93/golangtini"
 
-ENV GOLANG_VERSION="1.9.1" \
+ENV GOLANG_VERSION="1.9.2" \
 		GOPATH="/go" \
 		PATH="$GOPATH/bin:/usr/local/go/bin:$PATH"
 
@@ -43,7 +43,7 @@ RUN set -eux; \
 	\
 # Download golang, check hash and untar
 	wget -O go.tgz "https://golang.org/dl/go$GOLANG_VERSION.src.tar.gz"; \
-	echo 'a84afc9dc7d64fe0fa84d4d735e2ece23831a22117b50dafc75c1484f1cb550e *go.tgz' | sha256sum -c -; \
+	echo '665f184bf8ac89986cfd5a4460736976f60b57df6b320ad71ad4cef53bb143dc *go.tgz' | sha256sum -c -; \
 	tar -C /usr/local -xzf go.tgz; \
 	rm go.tgz; \
 	\
